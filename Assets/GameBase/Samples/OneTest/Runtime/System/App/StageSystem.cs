@@ -43,8 +43,7 @@ public class StageSystem : BaseSystem {
     }
 
     protected override void OnStart() {
-        // SwitchStage(AppStageEnum.Load);
-        SwitchStage(AppStageEnum.Main);
+        SwitchStage(AppStageEnum.Load);
     }
 
     // 资源加载完成

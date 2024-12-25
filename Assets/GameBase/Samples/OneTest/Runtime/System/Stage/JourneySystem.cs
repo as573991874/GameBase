@@ -16,10 +16,6 @@ public class JourneySystem : BaseSystem {
     private List<JourneyMonster> journeyMonsters;
     private JourneyCamera journeyCamera;
 
-    // system
-    private JourneyActorSystem actorSystem;
-    private JourneyMeetSystem meetSystem;
-
     public void Inject(PlayerModel model) {
         this.playerModel = model;
     }
@@ -35,7 +31,6 @@ public class JourneySystem : BaseSystem {
         yield return this.journeyUI.WaitLoad();
         this.journeyScene = this.OpenScene<JourneyScene>();
         yield return this.journeyScene.WaitLoad();
-        this.journeyModel.splinePath = this.journeyScene.splinePath;
         this.journeyActor = this.OpenActor<JourneyActor>();
         this.journeyActor.Inject(this.journeyModel, this.playerModel);
         yield return this.journeyActor.WaitLoad();
@@ -43,13 +38,6 @@ public class JourneySystem : BaseSystem {
         this.journeyCamera.Inject(this.journeyActor, this.journeyModel);
         yield return this.journeyCamera.WaitLoad();
         this.journeyMonsters = new List<JourneyMonster>();
-        // system
-        this.actorSystem = this.CreateSystem<JourneyActorSystem>();
-        this.actorSystem.Inject(this.journeyModel, this.playerModel, this.journeyActor);
-        yield return this.actorSystem.WaitLoad();
-        this.meetSystem = this.CreateSystem<JourneyMeetSystem>();
-        this.meetSystem.Inject(this.journeyModel, this.monsterModels, this.journeyMonsters);
-        yield return this.meetSystem.WaitLoad();
         // 加载完成
         this.LoadFinish();
     }
@@ -72,14 +60,10 @@ public class JourneySystem : BaseSystem {
         this.journeyScene?.Open();
         this.journeyActor?.Open();
         this.journeyCamera?.Open();
-        this.actorSystem?.Start();
-        this.meetSystem?.Start();
     }
 
     // 关闭系统
     protected override void OnStop() {
-        this.actorSystem?.Stop();
-        this.meetSystem?.Stop();
         this.journeyCamera?.Close();
         this.journeyActor?.Close();
         this.journeyScene?.Close();
@@ -92,9 +76,6 @@ public class JourneySystem : BaseSystem {
         this.eventRunner.HandleOne<JourneyTreatEvent>(JourneyTreat);
         this.eventRunner.Handle<JourneyActorHealthEvent>(JourneyActorHealth);
         this.eventRunner.HandleOne<JourneyMeetEvent>(JourneyMeet);
-
-        this.actorSystem?.Tick();
-        this.meetSystem?.Tick();
 
         // 镜头 -> 后续改到系统
         if (this.journeyModel.IsMeet || this.journeyModel.IsBattle) {
@@ -122,19 +103,14 @@ public class JourneySystem : BaseSystem {
             this.eventRunner.Dispath(new MainStageSwitchEvent() { stage = MainStageEnum.Campsite });
         } else if (this.journeyModel.IsMeet) {
         } else if (this.journeyModel.IsBattle) {
-            this.actorSystem?.Next();
         } else if (this.journeyModel.IsIdle) {
-            this.actorSystem?.Go();
         } else if (this.journeyModel.IsRun) {
-            this.actorSystem?.Slow();
         } else {
-            this.actorSystem?.Rush();
         }
     }
 
     // 治疗
     private void JourneyTreat(JourneyTreatEvent eventData) {
-        this.actorSystem?.Treat();
     }
 
     // 血量变化
@@ -151,9 +127,7 @@ public class JourneySystem : BaseSystem {
         var model = this.monsterModels[this.journeyModel.NextEnergyIndex];
         var monster = this.journeyMonsters[this.journeyModel.NextEnergyIndex];
         this.journeyModel.NextEnergyIndex += 1;
-        this.actorSystem?.Meet();
         this.journeyCamera?.SetLookAt(monster.transform);
         yield return new WaitForSeconds(1.2f);
-        this.actorSystem?.Battle(model, monster);
     }
 }

@@ -55,8 +55,7 @@ public class MainStageSystem : BaseSystem {
     // 打开系统
     protected override void OnStart() {
         // 前往营地
-        // this.StartCoroutine(GoCampsite());
-        this.StartCoroutine(GoJourney());
+        this.StartCoroutine(GoCampsite());
     }
 
     // 关闭系统

@@ -4,5 +4,14 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/GameBase/Samples/OneTest/Boot.unity
+    guid: 53013027f2b2c4917bdae7b7e8edd198
+  - enabled: 1
+    path: Assets/GameBase/Samples/OneTest/Scene/Campsite.unity
+    guid: 1e7edf7401d7d4b4e874d914ca1d6a92
+  - enabled: 1
+    path: Assets/GameBase/Samples/OneTest/Scene/Journey.unity
+    guid: a4ce74d7f4e734dc8a2ca20d1534c127
   m_configObjects: {}

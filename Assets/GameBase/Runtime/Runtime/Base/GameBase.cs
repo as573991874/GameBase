@@ -17,7 +17,7 @@ public class GameBase : MonoBehaviour
     }
 
     // 创建系统
-    T CreateSystem<T>() where T : BaseSystem, new()
+    protected T CreateSystem<T>() where T : BaseSystem, new()
     {
         var system = new T();
         system.Inject(eventRunner);
@@ -28,8 +28,13 @@ public class GameBase : MonoBehaviour
     // 异步加载
     protected virtual IEnumerator Load()
     {
-        // model
+        yield return LoadBase();
+        Init();
+    }
 
+    // 异步加载
+    protected IEnumerator LoadBase()
+    {
         // system
         this.assetSystem = CreateSystem<AssetSystem>();
         this.uiSystem = CreateSystem<UISystem>();
@@ -39,7 +44,7 @@ public class GameBase : MonoBehaviour
         this.assetSystem.Start();
 
         // 初始化表现节点
-        var request = this.assetSystem.LoadAsset<GameObject>("App/Base");
+        var request = this.assetSystem.LoadAsset<GameObject>("GameBase");
         yield return request.WaitLoad();
         GameObject baseObj = GameObject.Instantiate(request.Asset, this.transform);
         baseObj.name = "Base";
@@ -49,9 +54,6 @@ public class GameBase : MonoBehaviour
         this.uiSystem.Inject(ui, camera);
         yield return this.uiSystem.WaitLoad();
         this.uiSystem.Start();
-
-        // 初始化
-        Init();
     }
 
     protected virtual void Init()

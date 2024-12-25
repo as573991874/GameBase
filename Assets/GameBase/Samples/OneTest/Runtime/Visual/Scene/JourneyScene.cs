@@ -1,14 +1,12 @@
 using UnityEngine;
 using System.Collections;
-using Dreamteck.Splines;
 
 public class JourneyScene : BaseScene {
-    public override string path => "Scene1211/Journey";
+    public override string path => "GameBase/Samples/OneTest/Scene/Journey";
 
     // model
     public Vector3 startPos;
     public Vector3 forward;
-    public SplineComputer splinePath;
 
     // view
 
@@ -19,7 +17,5 @@ public class JourneyScene : BaseScene {
         startPos = zs.position;
         forward = zs.forward;
         camera.SetActive(false);
-        var wayPoints = GameObject.Find("WayPoints");
-        splinePath = wayPoints.GetComponent<SplineComputer>();
     }
 }

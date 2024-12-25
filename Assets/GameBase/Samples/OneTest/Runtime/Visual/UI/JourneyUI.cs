@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using DG.Tweening;
 
 public class JourneyUI : BaseUI {
     public override string path => "Journey";
@@ -90,21 +89,6 @@ public class JourneyUI : BaseUI {
         var rectTransform = vfx.transform as RectTransform;
         rectTransform.anchoredPosition = localPoint;
         rectTransform.localScale = new Vector3(1.3f, 1.3f, 1.3f);
-        rectTransform.DOScale(0.9f, 0.2f).OnComplete(
-            () => {
-                rectTransform.DOScale(1f, 0.1f).OnComplete(
-                    () => {
-                        localPoint += new Vector2(-20f, 30f);
-                        text.DOFade(0f, 0.7f);
-                        rectTransform.DOAnchorPos(localPoint, 0.7f).OnComplete(
-                            () => {
-                                GameObject.Destroy(vfx);
-                            }
-                        );
-                    }
-                );
-            }
-        );
     }
 
     // 渲染血条状态

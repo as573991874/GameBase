@@ -1,7 +1,7 @@
 using UnityEngine;
 
 public class CampsiteScene : BaseScene {
-    public override string path => "ZSK/Scene/Campsite";
+    public override string path => "GameBase/Samples/OneTest/Scene/Campsite";
 
     // model
     // view

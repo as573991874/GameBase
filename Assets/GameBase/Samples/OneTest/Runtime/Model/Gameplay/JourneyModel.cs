@@ -1,10 +1,6 @@
-using Dreamteck.Splines;
 using UnityEngine;
 
 public class JourneyModel : BaseModel {
-    // 移动路径
-    public SplineComputer splinePath;
-
     // 镜头
     private int cameraIndex = 0;
     public int CameraIndex { get { return cameraIndex; } set => SetField(ref cameraIndex, value); }

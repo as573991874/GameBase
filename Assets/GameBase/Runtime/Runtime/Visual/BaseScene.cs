@@ -9,7 +9,7 @@ public abstract class BaseScene : BaseVisual {
 
     // 界面加载
     protected override IEnumerator OnLoad() {
-        var scenePath = $"Arts/{path}";
+        var scenePath = $"{path}";
         yield return assetSystem.LoadScene(scenePath);
         this.gameObject = new GameObject("__Root");
         this.transform = this.gameObject.transform;
