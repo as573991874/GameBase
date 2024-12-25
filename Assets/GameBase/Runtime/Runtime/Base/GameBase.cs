@@ -1,15 +1,14 @@
 using System.Collections;
 using UnityEngine;
 
-public class GameBase : MonoBehaviour
-{
-    private CoroutineRunner coroutine;
-    private EventRunner eventRunner;
-    private AssetSystem assetSystem;
-    private UISystem uiSystem;
+public class GameBase : MonoBehaviour {
+    protected GameModel gameModel;
+    protected CoroutineRunner coroutine;
+    protected EventRunner eventRunner;
+    protected AssetSystem assetSystem;
+    protected UISystem uiSystem;
 
-    void Awake()
-    {
+    void Awake() {
         DontDestroyOnLoad(this);
         eventRunner = new EventRunner(this);
         coroutine = new CoroutineRunner();
@@ -17,8 +16,7 @@ public class GameBase : MonoBehaviour
     }
 
     // 创建系统
-    protected T CreateSystem<T>() where T : BaseSystem, new()
-    {
+    protected T CreateSystem<T>() where T : BaseSystem, new() {
         var system = new T();
         system.Inject(eventRunner);
         system.Inject(assetSystem, uiSystem);
@@ -26,38 +24,38 @@ public class GameBase : MonoBehaviour
     }
 
     // 异步加载
-    protected virtual IEnumerator Load()
-    {
+    protected virtual IEnumerator Load() {
         yield return LoadBase();
         Init();
     }
 
     // 异步加载
-    protected IEnumerator LoadBase()
-    {
-        // system
-        this.assetSystem = CreateSystem<AssetSystem>();
-        this.uiSystem = CreateSystem<UISystem>();
+    protected IEnumerator LoadBase() {
+        // model
+        this.gameModel = new GameModel();
+        this.gameModel.GameSetting = Resources.Load<GameSetting>("GameSetting");
 
-        // 初始化资源系统
+        // node
+        var assetObj = Resources.Load<GameObject>(this.gameModel.GameSetting.BaseNode);
+        GameObject baseObj = GameObject.Instantiate(assetObj, this.transform);
+        baseObj.name = "Base";
+
+        // asset system
+        this.assetSystem = CreateSystem<AssetSystem>();
+        this.assetSystem.Inject(this.gameModel);
         yield return this.assetSystem.WaitLoad();
         this.assetSystem.Start();
 
-        // 初始化表现节点
-        var request = this.assetSystem.LoadAsset<GameObject>("GameBase");
-        yield return request.WaitLoad();
-        GameObject baseObj = GameObject.Instantiate(request.Asset, this.transform);
-        baseObj.name = "Base";
-
+        // ui system
         var ui = baseObj.transform.Find("Canvas");
         var camera = baseObj.transform.Find("Main Camera");
+        this.uiSystem = CreateSystem<UISystem>();
         this.uiSystem.Inject(ui, camera);
         yield return this.uiSystem.WaitLoad();
         this.uiSystem.Start();
     }
 
-    protected virtual void Init()
-    {
+    protected virtual void Init() {
         // 监听事件
         this.eventRunner.Listen<GameBaseInitEvent>();
         // 派发事件
@@ -65,9 +63,9 @@ public class GameBase : MonoBehaviour
     }
 
     // Update is called once per frame
-    protected virtual void Update()
-    {
+    protected virtual void Update() {
         // 基础
+        this.gameModel.Tick();
         this.coroutine.Tick();
         // 事件
         this.eventRunner.HandleOne<GameBaseInitEvent>(InitFinish);
@@ -76,26 +74,21 @@ public class GameBase : MonoBehaviour
         this.uiSystem?.Tick();
     }
 
-    protected virtual void InitFinish(GameBaseInitEvent eventData)
-    {
+    protected virtual void InitFinish(GameBaseInitEvent eventData) {
     }
 
-    protected virtual void FixedUpdate()
-    {
+    protected virtual void FixedUpdate() {
     }
 
-    protected virtual void LateUpdate()
-    {
+    protected virtual void LateUpdate() {
     }
 
-    protected virtual void OnDestroy()
-    {
+    protected virtual void OnDestroy() {
         this.assetSystem = null;
         this.uiSystem = null;
     }
 
-    void OnApplicationQuit()
-    {
+    void OnApplicationQuit() {
         OnDestroy();
     }
 }

@@ -1,29 +1,31 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
-using System;
 
-public class Loading : BaseUI {
+public class LoadingUI : BaseUI {
     public override string path => "Loading";
-
-    // model
-    private AppStageModel appStageModel;
 
     // view
     private Text txtInfo;
 
-    public void Inject(AppStageModel model){
-        this.appStageModel = model;
-    }
-
     // 初始化
     protected override void OnInit() {
         txtInfo = this.transform.Find("Text (Legacy)").GetComponent<Text>();
+        this.transform.Find("List").gameObject.SetActive(false);
+    }
+
+    // 界面加载
+    protected override IEnumerator OnLoad() {
+        this.transform = this.canvas.transform.Find("Loading") as RectTransform;
+        this.gameObject = this.transform.gameObject;
+        this.gameObject.name = path;
+        LoadFinish();
+        yield return null;
     }
 
     // 打开
     protected override void OnOpen() {
-        txtInfo.text = this.appStageModel.GetStageInfo();
+        txtInfo.text = "加载中";
     }
 
     // 关闭
@@ -33,6 +35,6 @@ public class Loading : BaseUI {
     // 更新
     protected override void OnTick() {
         int count = (int)(Time.frameCount / 20f);
-        txtInfo.text = this.appStageModel.GetStageInfo() + new string('.', count % 4);
+        txtInfo.text = "加载中" + new string('.', count % 4);
     }
 }

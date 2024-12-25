@@ -18,7 +18,7 @@ public abstract class BaseUI : BaseVisual {
 
     // 界面加载
     protected override IEnumerator OnLoad() {
-        var assetPath = $"UI/{path}";
+        var assetPath = $"{path}";
         var request = assetSystem.LoadAsset<GameObject>(assetPath);
         yield return request.WaitLoad();
         var go = GameObject.Instantiate(request.Asset);

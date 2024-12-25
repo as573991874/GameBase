@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class CampsiteUI : BaseUI {
-    public override string path => "Campsite";
+    public override string path => "UI_Campsite";
 
     // model
     private PlayerModel playerModel;

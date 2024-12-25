@@ -4,11 +4,12 @@ using UnityEngine;
 // 流程系统，应用流程切换
 public class StageSystem : BaseSystem {
     // model
+    private GameModel gameModel;
     private AppStageModel appStageModel;
 
     // view
     private Transform root;
-    private Loading loadingUI;
+    private LoadingUI loadingUI;
 
     // system
     private LoadStageSystem loadStageSystem;
@@ -16,8 +17,9 @@ public class StageSystem : BaseSystem {
     private MainStageSystem mainStageSystem;
     private BaseSystem curSystem;
 
-    public void Inject(Transform root) {
+    public void Inject(Transform root, GameModel gameModel) {
         this.root = root;
+        this.gameModel = gameModel;
     }
 
     protected override IEnumerator OnLoad() {
@@ -26,11 +28,12 @@ public class StageSystem : BaseSystem {
         this.appStageModel.stage = AppStageEnum.Init;
 
         // 准备 view
-        this.loadingUI = this.OpenUI<Loading>();
+        this.loadingUI = this.OpenUI<LoadingUI>();
         yield return this.loadingUI.WaitLoad();
 
         // 准备系统
         this.loadStageSystem = CreateSystem<LoadStageSystem>();
+        this.loadStageSystem.Inject(this.gameModel);
         this.loginStageSystem = CreateSystem<LoginStageSystem>();
         this.mainStageSystem = CreateSystem<MainStageSystem>();
 
@@ -70,7 +73,6 @@ public class StageSystem : BaseSystem {
         this.appStageModel.stage = curStage;
         this.appStageModel.switching = true;
         // 打开 loading 界面
-        this.loadingUI.Inject(this.appStageModel);
         this.loadingUI.Open();
         // 推出之前的情景
         this.curSystem?.Stop();

@@ -2,7 +2,7 @@ using UnityEngine;
 using Cinemachine;
 
 public class JourneyCamera : BaseActor {
-    public override string path => "Camera/JourneyCamera";
+    public override string path => "CM_JourneyCamera";
 
     // model
     private JourneyActor playerActor;

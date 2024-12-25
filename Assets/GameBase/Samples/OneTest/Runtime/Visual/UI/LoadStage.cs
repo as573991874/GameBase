@@ -4,7 +4,7 @@ using UnityEngine.UI;
 using System;
 
 public class LoadStage : BaseUI {
-    public override string path => "Loading";
+    public override string path => "UI_Loading";
 
     // model
     private MainStageModel stageModel;
@@ -12,13 +12,14 @@ public class LoadStage : BaseUI {
     // view
     private Text txtInfo;
 
-    public void Inject(MainStageModel model){
+    public void Inject(MainStageModel model) {
         this.stageModel = model;
     }
 
     // 初始化
     protected override void OnInit() {
         txtInfo = this.transform.Find("Text (Legacy)").GetComponent<Text>();
+        this.transform.Find("List").gameObject.SetActive(false);
     }
 
     // 打开

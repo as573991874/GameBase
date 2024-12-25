@@ -1,8 +1,7 @@
-using UnityEditor.Animations;
 using UnityEngine;
 
 public class JourneyMonster : BaseActor {
-    public override string path => $"Actor/{this.monsterModel.sign}";
+    public override string path => $"Actor_{this.monsterModel.sign}";
 
     // model
     private MonsterModel monsterModel;
@@ -55,13 +54,13 @@ public class JourneyMonster : BaseActor {
         this.monsterModel.isHurt = true;
         this.animator.SetTrigger("Hurt");
         // 设置速度
-        var controller = this.animator.runtimeAnimatorController as AnimatorController;
-        for (var i = 0; i < controller.layers[0].stateMachine.states.Length; i++) {
-            var state = controller.layers[0].stateMachine.states[i].state;
-            if (state.name == "f_hurt") {
-                state.speed = 1 / spd;
-            }
-        }
+        // var controller = this.animator.runtimeAnimatorController as RuntimeAnimatorController;
+        // for (var i = 0; i < controller.layers[0].stateMachine.states.Length; i++) {
+        //     var state = controller.layers[0].stateMachine.states[i].state;
+        //     if (state.name == "f_hurt") {
+        //         state.speed = 1 / spd;
+        //     }
+        // }
         this.eventRunner.Dispath(new JourneyActorHealthEvent(){health = -attack, transform = this.transform});
     }
 

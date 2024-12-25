@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class JourneyUI : BaseUI {
-    public override string path => "Journey";
+    public override string path => "UI_Journey";
 
     // model
     private PlayerModel playerModel;

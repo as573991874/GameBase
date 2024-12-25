@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 
 public class JourneyScene : BaseScene {
-    public override string path => "GameBase/Samples/OneTest/Scene/Journey";
+    public override string path => "Scene_Journey";
 
     // model
     public Vector3 startPos;

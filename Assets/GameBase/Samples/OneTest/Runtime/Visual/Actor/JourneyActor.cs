@@ -1,8 +1,7 @@
-using UnityEditor.Animations;
 using UnityEngine;
 
 public class JourneyActor : BaseActor {
-    public override string path => "Actor/Actor";
+    public override string path => "Actor_Actor";
 
     // model
     private JourneyModel journeyModel;
