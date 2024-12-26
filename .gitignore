@@ -72,6 +72,8 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 .DS_Store
-Assets/StreamingAssets
-Bundles
+Assets/StreamingAssets/
+Bundles/
 Assets/StreamingAssets.meta
+publish/
+yoo/

@@ -15,6 +15,6 @@ MonoBehaviour:
   Version: v1.0
   BaseNode: GameBase
   PackageName: DefaultPackage
-  AssetPlayMode: 0
+  AssetPlayMode: 2
   AssetServerIP: http://192.168.111.109:8885
   OpenDebug: 1

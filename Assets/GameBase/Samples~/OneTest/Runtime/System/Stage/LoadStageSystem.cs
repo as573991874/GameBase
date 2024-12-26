@@ -38,9 +38,8 @@ public class LoadStageSystem : BaseSystem {
         model.DirtyCheck("PackageUpdateManifest", UpdateManifest, model.PackageUpdateManifest);
     }
 
-    void UpdateManifest(bool finish){
-        Debug.Log($"{finish} zsk {this.gameModel.AssetModel.PackageNeedDownload}");
-        if(finish && !this.gameModel.AssetModel.PackageNeedDownload){
+    void UpdateManifest(bool finish) {
+        if (finish && !this.gameModel.AssetModel.PackageNeedDownload) {
             this.eventRunner.Dispath(new AppAssetLoadFinishEvent());
         }
     }
