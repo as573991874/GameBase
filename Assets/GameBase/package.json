@@ -21,7 +21,7 @@
     },
     "relatedPackages": {},
     "dependencies": {
-        "com.tuyoogame.yooasset": "2.1.2"
+        "com.tuyoogame.yooasset": "2.2.4-preview"
     },
     "scopedRegistries": [
         {
