@@ -31,7 +31,7 @@ public partial class BuildTool {
         GenerateVersionInfo(buildArgs.buildNum);
 
         Debug.LogFormat(" ---------- BeginBuild ---------- ");
-        EnableAutoRotate(false);
+        // EnableAutoRotate(false);
         if (buildArgs.apkTag.Length > 0) {
             PlayerSettings.productName = buildArgs.packageName + "_" + buildArgs.apkTag;
         } else {

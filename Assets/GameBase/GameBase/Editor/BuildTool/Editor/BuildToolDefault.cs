@@ -25,7 +25,7 @@ public partial class BuildTool {
         bool isDebug = (args.Length > 13) ? bool.Parse(args[13]) : false;
 
         Debug.LogFormat(" ---------- BeginBuild ---------- ");
-        EnableAutoRotate(false);
+        // EnableAutoRotate(false);
         PlayerSettings.productName = packageName;
 
         //todo 每次build删除之前的残留
