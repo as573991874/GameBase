@@ -77,7 +77,7 @@ public partial class BuildTool {
                 PlayerSettings.resizableWindow = true;
                 PlayerSettings.defaultScreenHeight = 1334;
                 PlayerSettings.defaultScreenWidth = 750;
-                path = Path.Combine(path, "android", buildArgs.packageName + ".app");
+                path = Path.Combine(path, "macOS", buildArgs.packageName + ".app");
                 break;
             default:
                 group = BuildTargetGroup.Standalone;

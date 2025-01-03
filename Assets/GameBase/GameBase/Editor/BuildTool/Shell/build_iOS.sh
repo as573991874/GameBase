@@ -33,5 +33,5 @@ xcodebuild || exit
 echo "Tip : xcodebuild success"
 
 echo "Tip : xcode app to ipa begin"
-xcrun -sdk iphoneos PackageApplication -v ${build_path}/Release-iphoneos/${source_app_name}.app -o ${project_path}/../../android/${ipa_name}.ipa
+xcrun -sdk iphoneos PackageApplication -v ${build_path}/Release-iphoneos/${source_app_name}.app -o ${project_path}/../../ios/${ipa_name}.ipa
 echo "Tip : xcode app to ipa success"
