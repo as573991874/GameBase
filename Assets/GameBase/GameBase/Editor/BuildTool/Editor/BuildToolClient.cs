@@ -73,10 +73,10 @@ public partial class BuildTool {
             case "StandaloneOSX":
                 target = BuildTarget.StandaloneOSX;
                 group = BuildTargetGroup.Standalone;
-                PlayerSettings.fullScreenMode = FullScreenMode.Windowed;
-                PlayerSettings.resizableWindow = true;
-                PlayerSettings.defaultScreenHeight = 1334;
-                PlayerSettings.defaultScreenWidth = 750;
+                // PlayerSettings.fullScreenMode = FullScreenMode.Windowed;
+                // PlayerSettings.resizableWindow = true;
+                // PlayerSettings.defaultScreenHeight = 1334;
+                // PlayerSettings.defaultScreenWidth = 750;
                 path = Path.Combine(path, "macOS", buildArgs.packageName + ".app");
                 break;
             default:
