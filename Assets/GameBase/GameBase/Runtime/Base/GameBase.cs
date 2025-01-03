@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 
 public class GameBase : MonoBehaviour {
+    private GameObject baseObj;
     protected GameModel gameModel;
     protected CoroutineRunner coroutine;
     protected EventRunner eventRunner;
@@ -10,6 +11,14 @@ public class GameBase : MonoBehaviour {
 
     void Awake() {
         DontDestroyOnLoad(this);
+        // model
+        this.gameModel = new GameModel();
+        this.gameModel.GameSetting = Resources.Load<GameSetting>("GameSetting");
+        // node
+        var assetObj = Resources.Load<GameObject>(this.gameModel.GameSetting.BaseNode);
+        this.baseObj = GameObject.Instantiate(assetObj, this.transform);
+        this.baseObj.name = "Base";
+        // event、coroutine
         eventRunner = new EventRunner(this);
         coroutine = new CoroutineRunner();
         coroutine.Start(Load());
@@ -31,15 +40,6 @@ public class GameBase : MonoBehaviour {
 
     // 异步加载
     protected IEnumerator LoadBase() {
-        // model
-        this.gameModel = new GameModel();
-        this.gameModel.GameSetting = Resources.Load<GameSetting>("GameSetting");
-
-        // node
-        var assetObj = Resources.Load<GameObject>(this.gameModel.GameSetting.BaseNode);
-        GameObject baseObj = GameObject.Instantiate(assetObj, this.transform);
-        baseObj.name = "Base";
-
         // asset system
         this.assetSystem = CreateSystem<AssetSystem>();
         this.assetSystem.Inject(this.gameModel);

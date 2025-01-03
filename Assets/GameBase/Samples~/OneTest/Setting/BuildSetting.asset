@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: BuildSetting
+  m_EditorClassIdentifier: Assembly-CSharp-Editor::BuildSetting
+  PackageName: OneTest
+  BootScene: Assets/GameBase/Samples/OneTest/Arts/Scene/Campsite.unity
+  PackageIcon: {fileID: 21300000, guid: 7950f9cf6136348c3b750e8a0546294b, type: 3}
+  IOSAppID: 
+  IOSDeveloperID: 
+  IOSProfileID: 
