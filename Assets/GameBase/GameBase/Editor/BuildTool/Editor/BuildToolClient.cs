@@ -68,7 +68,7 @@ public partial class BuildTool {
                 target = BuildTarget.iOS;
                 group = BuildTargetGroup.iOS;
                 SignedIOS();
-                path = Path.Combine(path, "build", buildArgs.packageName);
+                path = Path.Combine(path, "ios", buildArgs.packageName);
                 break;
             case "StandaloneOSX":
                 target = BuildTarget.StandaloneOSX;

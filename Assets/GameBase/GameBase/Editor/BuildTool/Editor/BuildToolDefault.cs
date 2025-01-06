@@ -51,7 +51,7 @@ public partial class BuildTool {
                 target = BuildTarget.iOS;
                 group = BuildTargetGroup.iOS;
                 SignedIOS();
-                path = Path.Combine(path, "build", packageName);
+                path = Path.Combine(path, "ios", packageName);
                 break;
             default:
                 group = BuildTargetGroup.Standalone;
