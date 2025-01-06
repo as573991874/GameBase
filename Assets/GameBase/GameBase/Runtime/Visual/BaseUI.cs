@@ -26,7 +26,8 @@ public abstract class BaseUI : BaseVisual {
         this.transform = this.gameObject.transform as RectTransform;
         this.transform.SetParent(this.parent);
         this.transform.offsetMin = Vector2.zero;
-        this.transform.offsetMax = Vector2.one;
+        this.transform.offsetMax = Vector2.zero;
+        this.transform.localScale = Vector3.one;
         this.gameObject.name = path;
         LoadFinish();
     }
